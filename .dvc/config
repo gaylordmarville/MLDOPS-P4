@@ -1,4 +1,6 @@
 [core]
-    remote = localremote
+    remote = driveremote
 ['remote "localremote"']
     url = ../../localremote
+['remote "driveremote"']
+    url = s3://mldops-p4
