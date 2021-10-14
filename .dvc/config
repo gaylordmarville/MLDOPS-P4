@@ -3,4 +3,4 @@
 ['remote "localremote"']
     url = ../../localremote
 ['remote "s3remote"']
-    url = s3://mldops-s4
+    url = s3://mldops-p4
