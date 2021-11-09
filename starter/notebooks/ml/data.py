@@ -1,22 +1,5 @@
 import numpy as np
-import pandas as pd
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
-from sklearn import preprocessing
-
-
-def load_data(path):
-    '''
-    returns dataframe for the csv found at pth
-
-    input:
-            pth: a path to the csv
-    output:
-            df: pandas dataframe
-    '''
-
-    dataframe = pd.read_csv(path)
-
-    return dataframe
 
 
 def process_data(X, categorical_features=[], label=None,
@@ -84,7 +67,4 @@ def process_data(X, categorical_features=[], label=None,
             pass
 
     X = np.concatenate([X_continuous, X_categorical], axis=1)
-    scaler = preprocessing.StandardScaler().fit(X)
-    X_scaled = scaler.transform(X)
-
-    return X_scaled, y, encoder, lb
+    return X, y, encoder, lb

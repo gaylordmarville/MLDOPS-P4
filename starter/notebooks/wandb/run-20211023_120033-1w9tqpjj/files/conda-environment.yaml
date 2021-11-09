@@ -1,0 +1,4 @@
+name: udacity
+channels:
+  - defaults
+prefix: /home/gaylord/anaconda3/envs/udacity/envs/udacity
