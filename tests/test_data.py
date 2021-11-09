@@ -2,6 +2,7 @@ import logging
 from starter.starter.ml.data import load_data, process_data
 from starter.starter.ml.model import compute_model_metrics
 import numpy as np
+import os
 
 logging.basicConfig(
     filename='./tests/logs/tests.log',
@@ -10,12 +11,25 @@ logging.basicConfig(
     format='%(name)s - %(levelname)s - %(message)s',
     force=True)
 
+
+current_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+filename = os.path.join(current_dir, "starter/data/clean_census.csv")
+
+
+def test_test():
+    logging.info(os.path.realpath(__file__))
+    logging.info(current_dir)
+    assert 1
+
+
 def test_import():
     '''
-    test data import - this example is completed for you to assist with the other test functions
+    test data import - this example is completed for you
+    to assist with the other test functions
     '''
     try:
-        data = load_data("./starter/data/clean_census.csv")
+        logging.info(filename)
+        data = load_data(filename)
         logging.info("Testing import_data: SUCCESS")
     except FileNotFoundError as err:
         logging.error("Testing import_data: The file wasn't found")
@@ -26,13 +40,14 @@ def test_import():
         assert data.shape[1] > 0
     except AssertionError as err:
         logging.error(
-            "Testing import_data: The file doesn't appear to have rows and columns")
+            "Testing import_data:\
+             The file doesn't appear to have rows and columns")
         raise err
 
 
 def test_standardization():
     try:
-        data = load_data("./starter/data/clean_census.csv")
+        data = load_data(filename)
 
         cat_features = [
             "workclass",
@@ -45,11 +60,12 @@ def test_standardization():
             "native-country",
         ]
 
-        X_train, y_train, _, _ = process_data(data,
-                                              categorical_features=cat_features,
-                                              label="salary", training=True)
+        X_train, y_train, _, _ = process_data(
+                                 data,
+                                 categorical_features=cat_features,
+                                 label="salary",
+                                 training=True)
 
-        
         mean_cat = np.mean(X_train, axis=0)
         assert np.all(mean_cat < 1e-10) and np.all(mean_cat > -1e-10)
         assert np.all(np.std(X_train, axis=0))
@@ -64,7 +80,8 @@ def test_standardization():
 
         logging.info("Testing process_data: SUCCESS")
     except FileNotFoundError as err:
-        logging.error("Testing process_data: The data are not correctly preprocessed")
+        logging.error("Testing process_data:\
+                      The data are not correctly preprocessed")
         raise err
 
 
@@ -79,5 +96,6 @@ def test_compute_model_metrics():
 
         logging.info("Testing compute_model_metrics: SUCCESS")
     except FileNotFoundError as err:
-        logging.error("Testing compute_model_metrics: The metrics evaluation failed")
+        logging.error("Testing compute_model_metrics: \
+                      The metrics evaluation failed")
         raise err
