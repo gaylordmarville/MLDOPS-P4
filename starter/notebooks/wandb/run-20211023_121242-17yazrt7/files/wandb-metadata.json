@@ -1,0 +1,26 @@
+{
+    "os": "Linux-5.11.0-38-generic-x86_64-with-glibc2.10",
+    "python": "3.8.10",
+    "heartbeatAt": "2021-10-23T10:12:44.545680",
+    "startedAt": "2021-10-23T10:12:42.472805",
+    "docker": null,
+    "gpu": "GeForce GTX 1080 Ti",
+    "gpu_count": 2,
+    "cpu_count": 12,
+    "cuda": null,
+    "args": [
+        "-f",
+        "/home/gaylord/.local/share/jupyter/runtime/kernel-09aeff14-372a-4e3b-98fc-f1326f4ed8cb.json"
+    ],
+    "state": "running",
+    "program": "Untitled.ipynb",
+    "root": "/home/gaylord/Documents/Udacity/MLDOND/P4/Project/MLDOPS-P4",
+    "git": {
+        "remote": "https://github.com/gaylordmarville/MLDOPS-P4.git",
+        "commit": "84db4b0f439f567c1e5e11aa9dbfc1203b3d4aee"
+    },
+    "email": "gaylord.marville@gmail.com",
+    "host": "gaylord-MS-7885",
+    "username": "gaylord",
+    "executable": "/home/gaylord/anaconda3/envs/udacity/bin/python"
+}
