@@ -10,17 +10,40 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
+        
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-2
+
+    - name: Copy files to the test website with the AWS CLI
+      run: |
+        aws s3 sync . s3://mldops-p4
+        
+    - uses: iterative/setup-dvc@v1
+      with:
+        version: '2.8.1'
+        
+    - name: Pull DVC datas
+      run: |
+        dvc pull
+        
     - name: Add conda to system path
       run: |
         # $CONDA is an environment variable pointing to the root of the miniconda directory
         echo $CONDA/bin >> $GITHUB_PATH
+        
     - name: Install dependencies
       run: |
         conda env update --file environment.yml --name base
+        
     - name: Lint with flake8
       run: |
         conda install flake8
@@ -28,7 +51,11 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # The GitHub editor is 127 chars wide
         flake8 . --count --max-complexity=10 --max-line-length=127 --statistics
+        
     - name: Test with pytest
       run: |
+        conda install -c conda-forge mamba
+        mamba install -c conda-forge dvc
+        mamba install -c conda-forge dvc-s3
         conda install pytest
-        pytest
+        python -m pytest tests/ --log-cli-level=INFO

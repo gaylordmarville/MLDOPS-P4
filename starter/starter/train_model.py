@@ -3,7 +3,6 @@
 from sklearn.model_selection import train_test_split
 
 # Add the necessary imports for the starter code.
-import pandas as pd
 from ml.data import process_data, load_data
 from ml.model import train_model, compute_model_metrics, inference
 import joblib
@@ -34,9 +33,13 @@ X_train, y_train, encoder, lb = process_data(train,
                                              label="salary", training=True)
 
 
-X_test, y_test, _, _ = process_data(test,
-                                    categorical_features=cat_features,
-                                    label="salary", training=False, encoder=encoder, lb=lb)
+X_test, y_test, _, _ = process_data(
+                            test,
+                            categorical_features=cat_features,
+                            label="salary",
+                            training=False,
+                            encoder=encoder,
+                            lb=lb)
 
 
 # Train and save a model.
@@ -48,4 +51,4 @@ precision, recall, fbeta = compute_model_metrics(y_test, preds)
 
 print(f"Precision:{precision}, Recall:{recall}, Fbeta score:{fbeta}")
 
-# joblib.dump(model, 'best_model.joblib') 
+joblib.dump(model, 'best_model.joblib')
