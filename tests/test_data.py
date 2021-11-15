@@ -21,12 +21,6 @@ data = load_data(StringIO(dvc.api.read('starter/data/clean_census.csv',
                  repo='https://github.com/gaylordmarville/MLDOPS-P4')))
 
 
-def test_test():
-    logging.info(os.path.realpath(__file__))
-    logging.info(current_dir)
-    assert 1
-
-
 def test_import():
     '''
     test data import - this example is completed for you
