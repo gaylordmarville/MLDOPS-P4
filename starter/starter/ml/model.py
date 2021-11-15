@@ -1,9 +1,18 @@
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
+from starter.starter.utils.helpers import timer_func
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    filemode='w',
+    format='%(name)s - %(levelname)s - %(message)s',
+    force=True)
 
 
-def find_model_and_params(X_train, y_train):
+@timer_func
+def find_model_and_params(X_train, y_train, X_test, y_test):
     """
     Trains a machine learning model and returns it.
 
@@ -32,24 +41,48 @@ def find_model_and_params(X_train, y_train):
     # Create a based model
     clf = RandomForestClassifier()
 
-    l_cv = [4, ]
+    l_cv = [3, 4, 5]
+
+    final_best_params = dict()
+
+    best_f1score = float("-inf")
+
+    best_cv = None
 
     for cv in l_cv:
 
         # Instantiate the grid search model
         grid_search = GridSearchCV(estimator=clf, param_grid=param_grid,
-                                   cv=cv, n_jobs=-1, verbose=2)
+                                   cv=cv, n_jobs=-1, verbose=2,
+                                   scoring="f1_macro")
 
         # Fit the grid search to the data
         grid_search.fit(X_train, y_train)
 
         best_params = grid_search.best_params_
 
-    return RandomForestClassifier, best_params
+        model = RandomForestClassifier(**best_params)
+
+        model.fit(X_train, y_train)
+
+        preds = inference(model, X_test)
+
+        _, _, f1score = compute_model_metrics(y_test, preds)
+
+        if f1score > best_f1score:
+            best_f1score = f1score
+            final_best_params = best_params
+            best_cv = cv
+
+    logging.info(f"Best cv: {best_cv}")
+    logging.info(f"Best Random Forest classifier parameters: \
+                 {final_best_params}")
+
+    return RandomForestClassifier, final_best_params
 
 
 # Optional: implement hyperparameter tuning.
-def train_model(X_train, y_train, params_tuning=False):
+def train_model(X_train, y_train, X_test, y_test, params_tuning=False):
     """
     Trains a machine learning model and returns it.
 
@@ -66,8 +99,10 @@ def train_model(X_train, y_train, params_tuning=False):
     """
 
     if params_tuning:
-        model, best_parameters = find_model_and_params(X_train, y_train)
-        print(best_parameters)
+        model, best_parameters = find_model_and_params(X_train,
+                                                       y_train,
+                                                       X_test,
+                                                       y_test)
         clf = model(**best_parameters)
         clf.fit(X_train, y_train)
     else:

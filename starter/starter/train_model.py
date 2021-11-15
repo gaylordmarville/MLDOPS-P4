@@ -3,11 +3,27 @@
 from sklearn.model_selection import train_test_split
 
 # Add the necessary imports for the starter code.
-from ml.data import process_data, load_data
-from ml.model import train_model, compute_model_metrics, inference
+from starter.starter.ml.data import process_data, load_data
+from starter.starter.ml.model import train_model, compute_model_metrics
+from starter.starter.ml.model import inference
 import joblib
+import os
+import logging
 
-data_path = "../data/clean_census.csv"
+logging.basicConfig(
+    level=logging.INFO,
+    filemode='w',
+    format='%(name)s - %(levelname)s - %(message)s',
+    force=True)
+
+parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+
+data_path = os.path.join(parent_dir, "data/clean_census.csv")
+model_fd_path = os.path.join(parent_dir, "model/")
+
+logging.info(f"data_path: {data_path}")
+
+# data_path = "../data/clean_census.csv"
 
 # Add code to load in the data.
 data = load_data(data_path)
@@ -43,12 +59,14 @@ X_test, y_test, _, _ = process_data(
 
 
 # Train and save a model.
-model = train_model(X_train, y_train, params_tuning=True)
+model = train_model(X_train, y_train, X_test, y_test, params_tuning=True)
 
 # Model performance evaluation on categorical features
 preds = inference(model, X_test)
 precision, recall, fbeta = compute_model_metrics(y_test, preds)
 
-print(f"Precision:{precision}, Recall:{recall}, Fbeta score:{fbeta}")
+logging.info(f"Precision:{precision}, Recall:{recall}, F1 score:{fbeta}")
 
-joblib.dump(model, 'best_model.joblib')
+model_path = os.path.join(model_fd_path, "best_model.joblib")
+logging.info(f"Dumping best model: {model_path}")
+joblib.dump(model, open(model_path, "wb"))
