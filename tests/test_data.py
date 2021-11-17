@@ -15,9 +15,9 @@ logging.basicConfig(
 
 
 current_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-filename = os.path.join(current_dir, "starter/data/clean_census.csv")
+filename = os.path.join(current_dir, "data/clean_census.csv")
 
-data = load_data(StringIO(dvc.api.read('starter/data/clean_census.csv',
+data = load_data(StringIO(dvc.api.read('data/clean_census.csv',
                  repo='https://github.com/gaylordmarville/MLDOPS-P4')))
 
 
