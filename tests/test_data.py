@@ -1,6 +1,6 @@
 import logging
-from starter.starter.ml.data import load_data, process_data
-from starter.starter.ml.model import compute_model_metrics
+from src.ml.data import load_data, process_data
+from src.ml.model import compute_model_metrics
 import numpy as np
 import os
 import dvc.api
