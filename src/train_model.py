@@ -3,9 +3,9 @@
 from sklearn.model_selection import train_test_split
 
 # Add the necessary imports for the starter code.
-from starter.starter.ml.data import process_data, load_data
-from starter.starter.ml.model import train_model, compute_model_metrics
-from starter.starter.ml.model import inference
+from src.ml.data import process_data, load_data
+from src.ml.model import train_model, compute_model_metrics
+from src.ml.model import inference
 import joblib
 import os
 import logging
