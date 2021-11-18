@@ -6,6 +6,7 @@ import pandas as pd
 import joblib
 from src.ml.model import inference
 from src.ml.data import process_data
+import uvicorn
 
 
 parent_dir = os.path.dirname(os.path.realpath(__file__))
@@ -89,3 +90,6 @@ async def get_inference(body: Input):
 
     preds = inference(model, X_infer)
     return {"prediction": ">50K" if preds[0] else "<=50K"}
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True, workers=4)
