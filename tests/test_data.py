@@ -56,7 +56,7 @@ def test_standardization():
             "native-country",
         ]
 
-        X_train, y_train, _, _ = process_data(
+        X_train, y_train, _, _, _ = process_data(
                                  data,
                                  categorical_features=cat_features,
                                  label="salary",

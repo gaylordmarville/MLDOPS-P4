@@ -20,7 +20,7 @@ def load_data(path):
 
 
 def process_data(X, categorical_features=[], label=None,
-                 training=True, encoder=None, lb=None):
+                 training=True, encoder=None, lb=None, scaler=None):
     """ Process the data used in the machine learning pipeline.
 
     Processes the data using one hot encoding for the categorical
@@ -84,7 +84,8 @@ def process_data(X, categorical_features=[], label=None,
             pass
 
     X = np.concatenate([X_continuous, X_categorical], axis=1)
-    scaler = preprocessing.StandardScaler().fit(X)
+    if scaler is None:
+        scaler = preprocessing.StandardScaler().fit(X)
     X_scaled = scaler.transform(X)
 
-    return X_scaled, y, encoder, lb
+    return X_scaled, y, encoder, lb, scaler
