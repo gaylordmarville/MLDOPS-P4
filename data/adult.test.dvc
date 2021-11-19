@@ -1,0 +1,4 @@
+outs:
+- md5: 1cad3b89be6f2f380f0ed4317f97d93b
+  size: 1921726
+  path: adult.test

@@ -5,3 +5,5 @@
 /encoder.joblib
 /label_binarizer.joblib
 /scaler.joblib
+/adult.data
+/adult.test
