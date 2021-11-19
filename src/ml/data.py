@@ -2,21 +2,36 @@ import numpy as np
 import pandas as pd
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 from sklearn import preprocessing
+import os
 
 
-def load_data(path):
+parent_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+
+train_data_path = os.path.join(parent_dir, "data/adult.data")
+test_data_path = os.path.join(parent_dir, "data/adult.test")
+
+
+def load_data():
     '''
     returns dataframe for the csv found at pth
 
     input:
             pth: a path to the csv
     output:
-            df: pandas dataframe
+            (df, df): tuple of pandas dataframes
     '''
 
-    dataframe = pd.read_csv(path)
+    columns = ["age", "workclass", "fnlwgt", "education", "education-num", "marital-status", "occupation", "relationship", "race", "sex", "capital-gain", "capital-loss", "hours-per-week", "native-country", "salary"]
 
-    return dataframe
+    train_df = pd.read_csv(train_data_path)
+
+    test_df = pd.read_csv(test_data_path)
+
+    train_df.columns = columns
+
+    test_df.columns = columns
+
+    return train_df, test_df
 
 
 def process_data(X, categorical_features=[], label=None,
