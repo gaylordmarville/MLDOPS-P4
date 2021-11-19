@@ -7,3 +7,5 @@
 /scaler.joblib
 /adult.data
 /adult.test
+/adult_cleaned.data
+/adult_cleaned.test

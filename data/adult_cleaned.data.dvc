@@ -1,0 +1,4 @@
+outs:
+- md5: 868986d3cee81216b3aead869be98fd0
+  size: 3954305
+  path: adult_cleaned.data
