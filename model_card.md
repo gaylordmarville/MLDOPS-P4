@@ -22,7 +22,7 @@ The training set was used in the grid search cross validation in scikit-learn. T
 
 ## Metrics
 
-The model was evaluated using F1 score. The value is between 0.65 and 0.70.
+The model was evaluated using F1 score. The value is around 0.68.
 
 ## Ethical Considerations
 
