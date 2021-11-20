@@ -1,0 +1,4 @@
+outs:
+- md5: a0c1ab11a531bde45b616e87366d3c0c
+  size: 1771351
+  path: adult_cleaned.test

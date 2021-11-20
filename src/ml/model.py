@@ -38,9 +38,6 @@ def find_model_and_params(X_train, y_train, X_test, y_test):
         'n_estimators': [100, 200, 300, 1000]
     }
 
-    # Create a based model
-    clf = RandomForestClassifier()
-
     l_cv = [3, 4, 5]
 
     final_best_params = dict()
@@ -50,6 +47,9 @@ def find_model_and_params(X_train, y_train, X_test, y_test):
     best_cv = None
 
     for cv in l_cv:
+
+        # Create a based model
+        clf = RandomForestClassifier()
 
         # Instantiate the grid search model
         grid_search = GridSearchCV(estimator=clf, param_grid=param_grid,
