@@ -1,7 +1,3 @@
-
-/clean_census.csv
-/clean_census.csv
-/clean_census.csv
 /encoder.joblib
 /label_binarizer.joblib
 /scaler.joblib
