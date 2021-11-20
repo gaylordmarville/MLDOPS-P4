@@ -14,8 +14,8 @@ logging.basicConfig(
 
 parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
-train_data_path = os.path.join(parent_dir, "data/adult.data")
-test_data_path = os.path.join(parent_dir, "data/adult.test")
+train_data_path = os.path.join(parent_dir, "data/adult_cleaned.data")
+test_data_path = os.path.join(parent_dir, "data/adult_cleaned.test")
 model_path = os.path.join(parent_dir, "model/best_model.joblib")
 encoder_path = os.path.join(parent_dir, "data/encoder.joblib")
 label_binarizer_path = os.path.join(parent_dir, "data/label_binarizer.joblib")

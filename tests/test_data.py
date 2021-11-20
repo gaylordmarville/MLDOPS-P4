@@ -12,7 +12,7 @@ logging.basicConfig(
 
 parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
-train_data_path = os.path.join(parent_dir, "data/adult.data")
+train_data_path = os.path.join(parent_dir, "data/adult_cleaned.data")
 
 
 DATA = None
