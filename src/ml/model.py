@@ -31,11 +31,11 @@ def find_model_and_params(X_train, y_train, X_test, y_test):
     # Create the parameter grid based on the results of random search
     param_grid = {
         'bootstrap': [True],
-        'max_depth': [80, 90, 100, 110],
-        'max_features': [2, 3],
-        'min_samples_leaf': [3, 4, 5],
-        'min_samples_split': [8, 10, 12],
-        'n_estimators': [100, 200, 300, 1000]
+        'max_depth': [110, 120, 130],
+        'max_features': [20, 22, 24],
+        'min_samples_leaf': [5, 6, 7],
+        'min_samples_split': [11, 12, 13],
+        'n_estimators': [500, 600, 700]
     }
 
     l_cv = [3, 4, 5]
