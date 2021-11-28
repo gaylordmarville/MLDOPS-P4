@@ -7,7 +7,8 @@ logging.basicConfig(
     filename='./tests/logs/tests.log',
     level=logging.INFO,
     filemode='w',
-    format='%(name)s - %(levelname)s - %(message)s',
+    format='%(asctime)s.%(msecs)03d - %(name)s - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S',
     force=True)
 
 parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
