@@ -3,11 +3,13 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from src.utils.helpers import timer_func
 import logging
+import numpy as np
 
 logging.basicConfig(
     level=logging.INFO,
     filemode='w',
-    format='%(name)s - %(levelname)s - %(message)s',
+    format='%(asctime)s.%(msecs)03d - %(name)s - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S',
     force=True)
 
 
@@ -129,9 +131,9 @@ def compute_model_metrics(y, preds):
     recall : float
     fbeta : float
     """
-    fbeta = fbeta_score(y, preds, beta=1, zero_division=1)
-    precision = precision_score(y, preds, zero_division=1)
-    recall = recall_score(y, preds, zero_division=1)
+    fbeta = fbeta_score(y, preds, beta=1, zero_division=1, average='weighted')
+    precision = precision_score(y, preds, zero_division=1, average='weighted')
+    recall = recall_score(y, preds, zero_division=1, average='weighted')
     return precision, recall, fbeta
 
 
@@ -152,3 +154,23 @@ def inference(model, X):
     y_pred = model.predict(X)
 
     return y_pred
+
+
+def perf_on_slices(feature, process_data, test, cat_features,
+                   encoder, lb, scaler, model):
+    for education in np.unique(test.filter([feature])):
+        filter_test = test.loc[test[feature] == education]
+        X_test, y_test, _, _, _ = process_data(
+                                    filter_test,
+                                    categorical_features=cat_features,
+                                    label="salary",
+                                    training=False,
+                                    encoder=encoder,
+                                    lb=lb,
+                                    scaler=scaler)
+        preds = inference(model, X_test)
+        precision, recall, fbeta = compute_model_metrics(y_test, preds)
+        logging.info(f"Education: {education}, \
+                       Precision:{precision}, \
+                       Recall:{recall}, \
+                       F1 score:{fbeta}")

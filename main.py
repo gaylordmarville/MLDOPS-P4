@@ -19,7 +19,8 @@ scaler_path = os.path.join(parent_dir, "data/scaler.joblib")
 logging.basicConfig(
     level=logging.INFO,
     filemode='w',
-    format='%(name)s - %(levelname)s - %(message)s',
+    format='%(asctime)s.%(msecs)03d - %(name)s - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S',
     force=True)
 
 if "DYNO" in os.environ and os.path.isdir(".dvc"):
